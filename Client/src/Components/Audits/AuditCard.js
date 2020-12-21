@@ -21,16 +21,16 @@ const AuditCard = ({ audit }) => {
             <Card>
                 <Card.Content>                                
                     <Image
-                    floated='right'
-                    size='mini'
-                    src='https://react.semantic-ui.com/images/avatar/large/steve.jpg'
+                        floated='right'
+                        size='mini'
+                        src='https://react.semantic-ui.com/images/avatar/large/steve.jpg'
                     />
                     
                     <Card.Header as='a' onClick={() => {
-                  {
-                    dispatch(getAudit(audit._id));
-                  }
-                }} >{audit.name}</Card.Header>
+                        {
+                            dispatch(getAudit(audit._id));
+                        }
+                    }} >{audit.name}</Card.Header>
                     
                     <Card.Meta> Crée: <b>{moment(audit.createdAt).fromNow()}</b> | Modifié <b>{moment(audit.modifiedAt).fromNow()}</b></Card.Meta>
                     <Card.Description>
@@ -41,7 +41,7 @@ const AuditCard = ({ audit }) => {
 
                 <Card.Content>
                     
-                    <List.Item>
+                    <List.Item size='tiny'>
                     {(() => {
   
                         switch (audit.status) {

@@ -6,6 +6,7 @@ import {
     Menu,
     Header
   } from 'semantic-ui-react';
+  import { Link } from 'react-router-dom';
 
 
 function Navbar() {
@@ -45,14 +46,19 @@ function Navbar() {
                     </Dropdown.Menu>
                 </Dropdown>
 
-                <Menu.Item as='a' header>
-                    QMpanion
-                </Menu.Item>
+                    <Link to={'/'}>
+                    <Menu.Item as='a'  header>
+                        QMpanion
+                    </Menu.Item>
+
+                </Link>
+
+                
 
                 <Menu.Menu position='right'>
 
                     <Menu.Item fitted>
-                        <Searchbar/>
+                       
                     </Menu.Item>
                     
                     <Dropdown item simple text='Faten Fadhlaoui'>

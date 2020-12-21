@@ -12,9 +12,10 @@ import Navbar from './Navbar';
 import { Container, Row, Col } from 'reactstrap';
 import AuditList from '../../Components/Audits/AuditList';
 import AuditDetails from '../../Components/Audits/AuditDetails';
+import FilterAudits from '../../Components/Audits/FilterAudits';
+import Searchbar from '../../Components/Searchbar';
 
-
-function Dashbord() {  
+function AuditDashbord() {  
 
     return (
 
@@ -33,13 +34,15 @@ function Dashbord() {
                     </Col>
 
                     <Col xs='10' style={{
-                        width: '100%'
+                        //width: '100%'
                     }}>
                         <Row style={{
-                            //marginBottom: '10px'
+                            marginBottom: '10px'
                         }}>
                             <Col xs='12'>
-                                <p>Menu sera ici</p>
+                            <FilterAudits>
+                            <Searchbar/>
+                                </FilterAudits> 
                             </Col>
                             
                         </Row>
@@ -73,4 +76,4 @@ function Dashbord() {
     )
 }
 
-export default Dashbord
+export default AuditDashbord

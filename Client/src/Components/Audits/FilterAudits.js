@@ -5,6 +5,8 @@ import {
     Dropdown,
     Input
   } from 'semantic-ui-react';
+import Searchbar from '../Searchbar';
+
 
 function FilterAudits() {
     return (
@@ -29,9 +31,14 @@ function FilterAudits() {
                         </Dropdown.Menu>
                     </Dropdown>
                 </Menu.Item>
-
+                <Menu.Menu position='right'>
+                <Menu.Item>
+                <Searchbar/>
+                </Menu.Item>
+                </Menu.Menu>
            
         </Menu>
+       
         </>
     )
 }

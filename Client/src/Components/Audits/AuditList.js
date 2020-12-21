@@ -27,7 +27,7 @@ function AuditList() {
 
     return (
         <div>
-          <FilterAudits></FilterAudits>  
+         
             <Card.Group fluid 
                 itemsPerRow={1}
                 style={{
