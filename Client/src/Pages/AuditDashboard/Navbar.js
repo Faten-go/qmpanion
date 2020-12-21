@@ -56,10 +56,6 @@ function Navbar() {
                 
 
                 <Menu.Menu position='right'>
-
-                    <Menu.Item fitted>
-                       
-                    </Menu.Item>
                     
                     <Dropdown item simple text='Faten Fadhlaoui'>
                     <Dropdown.Menu>

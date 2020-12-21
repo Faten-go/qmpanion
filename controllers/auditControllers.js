@@ -26,3 +26,17 @@ exports.getAllAudits = async (req, res) => {
     }
   };
 
+  exports.delete = async (req, res) => {
+    try {
+      const response = await audit.deleteOne({ _id: req.params.id });
+      response.n
+        ? res.send({
+            response: response,
+            message: "opération réussie !",
+          })
+        : res.send({ message: "pas d'audit avec cet id " });
+    } catch (error) {
+      res.status(400).send({ message: "non supprimé ! " });
+    }
+  };
+

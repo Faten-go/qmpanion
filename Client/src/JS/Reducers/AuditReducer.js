@@ -3,6 +3,7 @@ import {
     GET_AUDITS_STARTED,
     GET_AUDITS_SUCCESS,
     GET_AUDIT,
+    EMPTY_SELECTED_AUDIT
    
   } from "../Constants/Constants";
   const initialState = {
@@ -21,6 +22,8 @@ import {
         return { ...state, loadingAudits: false, errors: payload };
       case GET_AUDIT:
         return { ...state, selectedAudit: payload };
+      case EMPTY_SELECTED_AUDIT:
+        return { ...state, selectedAudit: { } };
       default:
         return state;
     }

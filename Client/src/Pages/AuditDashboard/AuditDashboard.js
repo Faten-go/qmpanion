@@ -24,7 +24,7 @@ function AuditDashbord() {
         <div>
             <Navbar/>
             <Container fluid style={{
-                marginTop: '50px'
+                marginTop: '45px'
             }}>
                 <Row>
                     <Col xs='2'>
@@ -37,7 +37,7 @@ function AuditDashbord() {
                         //width: '100%'
                     }}>
                         <Row style={{
-                            marginBottom: '10px'
+                            marginBottom: '5px'
                         }}>
                             <Col xs='12'>
                             <FilterAudits>

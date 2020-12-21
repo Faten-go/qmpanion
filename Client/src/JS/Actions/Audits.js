@@ -4,6 +4,7 @@ import {
   GET_AUDITS_STARTED,
   GET_AUDITS_SUCCESS,
   GET_AUDIT,
+  EMPTY_SELECTED_AUDIT
 
 } from "../Constants/Constants";
 
@@ -22,5 +23,16 @@ export const getAllAudits = () => async (dispatch) => {
   export const getAudit = (id) => (dispatch) => {
     Axios.get(`/api/audit/${id}`)
       .then((res) => dispatch({ type: GET_AUDIT, payload: res.data.response }))
+      .catch((err) => console.log(err));
+  };
+
+
+
+  export const deleteAudit = (id) => (dispatch) => {
+    Axios.delete(`/api/audit/${id}`)
+      .then((res) => dispatch([
+        getAllAudits(),
+        { type: EMPTY_SELECTED_AUDIT }
+      ]))
       .catch((err) => console.log(err));
   };
