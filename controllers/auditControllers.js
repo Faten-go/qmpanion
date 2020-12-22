@@ -40,3 +40,19 @@ exports.getAllAudits = async (req, res) => {
     }
   };
 
+
+
+  exports.update = async (req, res) => {
+    try {
+      const response = await audit.updateOne(
+        { _id: req.params.id },
+        { $set: { ...req.body } }
+      );
+      response.nModified
+        ? res.send({ message: "updated !" })
+        : res.send({ message: "nothing to update !" });
+    } catch (error) {
+      res.status(400).send({ message: " cannot be found !" });
+    }
+  };
+

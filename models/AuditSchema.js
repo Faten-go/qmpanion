@@ -25,5 +25,13 @@ const auditSchema = new schema({
     type: String,
     required: true,
   },
+  createdAt: {
+    type: Date,
+    required: true,
+  },
+  modifiedAt: {
+    type: Date,
+    required: true,
+  },
 });
 module.exports =Audit = mongoose.model("audit", auditSchema);

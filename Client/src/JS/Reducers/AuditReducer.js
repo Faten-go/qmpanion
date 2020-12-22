@@ -23,7 +23,7 @@ import {
       case GET_AUDIT:
         return { ...state, selectedAudit: payload };
       case EMPTY_SELECTED_AUDIT:
-        return { ...state, selectedAudit: { } };
+        return { ...state, selectedAudit: {} };
       default:
         return state;
     }

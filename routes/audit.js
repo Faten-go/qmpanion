@@ -13,5 +13,8 @@ router.get("/:id", controllers.getOneAudit);
 // delete by id
 router.delete("/:id", controllers.delete);
 
+// update
+router.put("/:id", controllers.update);
+
 
 module.exports = router;

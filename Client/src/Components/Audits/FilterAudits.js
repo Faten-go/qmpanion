@@ -12,7 +12,7 @@ function FilterAudits() {
     return (
         <>
             <Menu borderless secondary>
-                    <Menu.Item>
+                    <Menu.Item as='a'>
                         <Icon className='add'></Icon>
                         Créer
 
