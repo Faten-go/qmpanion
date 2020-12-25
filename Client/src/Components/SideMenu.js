@@ -1,0 +1,91 @@
+import React from 'react'
+import { Dropdown, Icon, Input, Menu, Segment, Image, Header } from 'semantic-ui-react'
+
+function SideMenu() {
+    return (
+        <div>
+          <Segment raised fluid inverted style={{
+            width: '100%',
+            height: '100vh'
+          }}>
+
+          <Menu inverted fluid vertical >
+            <Menu.Item>
+                <Image circular centered src='https://react.semantic-ui.com/images/avatar/large/patrick.png' style={{ maxWidth: '80px'}} />
+                <Header as='h3' icon inverted color='blue'>
+                    Bienvenue Faten
+                    <Header.Subheader>
+                    Vous êtes ici en tant que : <b>Responsable Qualité</b>
+                    </Header.Subheader>
+                </Header>
+            </Menu.Item>
+
+            <Menu.Item>
+              Dashboard
+              <Menu.Menu>
+                <Menu.Item
+                  name='search'
+                  //active={activeItem === 'search'}
+                  //onClick={this.handleItemClick}
+                >
+                  Search
+                </Menu.Item>
+                <Menu.Item
+                  name='add'
+                  //active={activeItem === 'add'}
+                  //onClick={this.handleItemClick}
+                >
+                  Add
+                </Menu.Item>
+                <Menu.Item
+                  name='about'
+                // active={activeItem === 'about'}
+                //onClick={this.handleItemClick}
+                >
+                  Remove
+                </Menu.Item>
+              </Menu.Menu>
+            </Menu.Item>
+
+            <Menu.Item
+              name='browse'
+              //active={activeItem === 'browse'}
+              //onClick={this.handleItemClick}
+            >
+              <Icon name='calender check' />
+              Audits
+            </Menu.Item>
+            <Menu.Item
+              name='browse'
+              //active={activeItem === 'browse'}
+              //onClick={this.handleItemClick}
+            >
+              <Icon name='exclamation' />
+              Anomalies
+            </Menu.Item>
+
+            <Menu.Item
+              name='browse'
+              //active={activeItem === 'browse'}
+              //onClick={this.handleItemClick}
+            >
+              <Icon name='medkit' />
+              Actions correctives
+            </Menu.Item>
+
+
+
+            <Dropdown item text='Options'>
+              <Dropdown.Menu>
+                <Dropdown.Item icon='edit' text='Edit Profile' />
+                <Dropdown.Item icon='globe' text='Choose Language' />
+                <Dropdown.Item icon='settings' text='Account Settings' />
+              </Dropdown.Menu>
+            </Dropdown>
+          </Menu> 
+      </Segment>
+        </div>
+    )
+}
+
+export default SideMenu

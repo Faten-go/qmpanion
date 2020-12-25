@@ -50,10 +50,7 @@ const AuditCard = ({ audit }) => {
                                 return (
                                 <Label color='green' horizontal>{audit.status}</Label>
                                 )
-                            case 'Nouveau':
-                                return (
-                                    <Label color='yellow' horizontal>{audit.status}</Label>
-                                )
+                            
                             case 'En cours':
                                 return (
                                     <Label color='purple' horizontal>{audit.status}</Label>
@@ -70,7 +67,7 @@ const AuditCard = ({ audit }) => {
 
                         })()}
                     
-                    <Label content={`Délai: ${moment(audit.deadline).format('dddd, MMMM Do YYYY')}`} icon='time' />
+                    <Label content={`Délai: ${moment(audit.deadline).format('D/M/YYYY')}`} icon='time' />
 
                     </List.Item>
                     </Card.Content>

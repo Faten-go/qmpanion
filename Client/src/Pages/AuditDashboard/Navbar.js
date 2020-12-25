@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Searchbar from '../../Components/Searchbar';
 import {
     Dropdown,
@@ -7,45 +7,40 @@ import {
     Header
   } from 'semantic-ui-react';
   import { Link } from 'react-router-dom';
+import { showSideMenu , hideSideMenu } from '../../JS/Actions/DashbordActions';
+import { useDispatch, useSelector } from "react-redux";
 
 
-function Navbar() {
+const Navbar = () => {
+    const dispatch = useDispatch();
+
+    const sideMenuVisible = useSelector((state) => state.dashboardInfo.sideMenuVisible);
+
+    const handleClick = () => {
+        sideMenuVisible ?  
+            dispatch (hideSideMenu ())  
+        :    
+            dispatch( showSideMenu())      
+    }
+
+    useEffect(() => {
+        
+      }, []);
+
+
 
     return (
         <div>
             <Menu fixed='top' color='blue' inverted>
 
-                <Dropdown item icon='bars' simple inverted>
-                    <Dropdown.Menu inverted>
-
-                        <Dropdown.Header>
-                            <Header as='h4' icon='check date' content='Audits' color='teal'/>
-                        </Dropdown.Header>
-                        
-                        <Dropdown.Item as='a' href=''>Afficher Tout</Dropdown.Item>
-                        <Dropdown.Item as='a' href=''>Créer</Dropdown.Item>
-                        
-                        <Dropdown.Divider />
-
-                        <Dropdown.Header>
-                            <Header as='h4' icon='exclamation' content='Anomalies' color='teal'/>
-                        </Dropdown.Header>
-
-                        <Dropdown.Item>Afficher</Dropdown.Item>
-                        <Dropdown.Item>Créer</Dropdown.Item>
-
-                        <Dropdown.Divider />
-
-                        <Dropdown.Header>
-                            <Header as='h4' icon='medkit' content='Actions' color='teal'/>
-                        </Dropdown.Header>
-
-                        <Dropdown.Item>Afficher</Dropdown.Item>
-                        <Dropdown.Item>Créer</Dropdown.Item>
-                        
-                    </Dropdown.Menu>
-                </Dropdown>
-
+            <Menu.Item
+          name='bars'
+         // active={activeItem === 'bars'}
+          onClick= {handleClick}    
+        >
+        
+          <Icon name='bars' />
+        </Menu.Item>
                     <Link to={'/'}>
                     <Menu.Item as='a'  header>
                         QMpanion
