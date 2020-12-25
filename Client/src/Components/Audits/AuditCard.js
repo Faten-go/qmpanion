@@ -12,10 +12,17 @@ import {
     
   } from 'semantic-ui-react';
   import moment from 'moment';
+import { hideAddAudit } from '../../JS/Actions/DashbordActions';
 
 const AuditCard = ({ audit }) => { 
 
     const dispatch = useDispatch();
+
+    const handleClick = () => {
+        dispatch(hideAddAudit())
+        dispatch(getAudit(audit._id))
+
+    }
     
     return (
         <>
@@ -27,11 +34,7 @@ const AuditCard = ({ audit }) => {
                         src='https://react.semantic-ui.com/images/avatar/large/steve.jpg'
                     />
                     
-                    <Card.Header as='a' onClick={() => {
-                        {
-                            dispatch(getAudit(audit._id));
-                        }
-                    }} >{audit.name}</Card.Header>
+                    <Card.Header as='a' onClick={handleClick} >{audit.name}</Card.Header>
                     
                     <Card.Meta> Crée: <b>{moment(audit.createdAt).fromNow()}</b> | Modifié <b>{moment(audit.modifiedAt).fromNow()}</b></Card.Meta>
                     <Card.Description>

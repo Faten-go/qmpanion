@@ -1,47 +1,56 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
     Menu,
     Icon,
     Dropdown,
     Input
   } from 'semantic-ui-react';
+import { hideAddAudit, showAddAudit } from '../../JS/Actions/DashbordActions';
 import Searchbar from '../Searchbar';
+import { useDispatch, useSelector } from "react-redux";
 
 
-function FilterAudits() {
+function FilterAudits({setTextSearch}) {
+    const dispatch = useDispatch();
+
+    const create = useSelector((state) => state.dashboardInfo.create);
+
+    const handleClick = () => {   
+        dispatch (showAddAudit ())      
+    }
+
+    useEffect(() => {
+        
+      }, []);
     return (
         <>
             <Menu borderless secondary>
-                    <Menu.Item as='a'>
+                    <Menu.Item onClick={handleClick}>
                         <Icon className='add'></Icon>
                         Créer
 
                     </Menu.Item>
 
-
-                    <Menu.Item>
-                        <Icon className='sort amount down'></Icon>
-                    <Dropdown text='Trier par'>
-                        <Dropdown.Menu>
-                        <Dropdown.Item text='Date de modification descendant' description='Plus récent > Plus ancien' />
-                        <Dropdown.Item text='Date de modification Ascendant' description='Plus ancien > Plus récent'/>
-                        </Dropdown.Menu>
-                        </Dropdown>
-                    </Menu.Item>
-
                     <Menu.Item>
                         <Icon className='filter'></Icon>
-                        <Dropdown text='Filtrer'>
+                        <Dropdown text='Filtrer par status' >
                             <Dropdown.Menu>
-                            <Dropdown.Item text='Afficher mes Audits' description='Plus récent > Plus ancien' />
-                            <Dropdown.Item text='Afficher les' description='Plus ancien > Plus récent'/>
+                            <Dropdown.Item text='En cours' />
+                            <Dropdown.Item text='Terminé' />
+                            <Dropdown.Item text='Bloqué' />
                             </Dropdown.Menu>
                         </Dropdown>
                     </Menu.Item>
                     <Menu.Menu position='right'>
                     
                     <Menu.Item fitted>
-                        <Searchbar/>
+                        <Icon name='search'/>
+                        <input
+                            placeholder='Chercher par nom...'
+                            onChange={
+                                (e)=> setTextSearch(e.target.value)
+                            }
+                        />
                     </Menu.Item>
                 
                 </Menu.Menu>

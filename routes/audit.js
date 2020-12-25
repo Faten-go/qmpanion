@@ -16,5 +16,8 @@ router.delete("/:id", controllers.delete);
 // update
 router.put("/:id", controllers.update);
 
+//post
+router.post("/", controllers.postAudit);
+
 
 module.exports = router;

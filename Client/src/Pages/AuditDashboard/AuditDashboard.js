@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Sidebar,
     Menu,
@@ -16,9 +16,17 @@ import FilterAudits from '../../Components/Audits/FilterAudits';
 import Searchbar from '../../Components/Searchbar';
 import SideMenu from '../../Components/SideMenu';
 import {  useSelector } from "react-redux";
+import AddAudit from '../../Components/Audits/AddAudit';
 
 function AuditDashbord() {  
     const sideMenuVisible = useSelector((state) => state.dashboardInfo.sideMenuVisible);
+    const create = useSelector((state) => state.dashboardInfo.create);
+
+    const [textSearch, setTextSearch] = useState("")
+
+    useEffect(() => {
+        
+      }, []);
 
     return (
 
@@ -47,7 +55,7 @@ function AuditDashbord() {
                             marginBottom: '5px'
                         }}>
                             <Col xs='12'>
-                            <FilterAudits>
+                            <FilterAudits setTextSearch={setTextSearch} >
                             <Searchbar/>
                                 </FilterAudits> 
                             </Col>
@@ -56,13 +64,19 @@ function AuditDashbord() {
 
                         <Row>
                             <Col xs='4'>
-                                <AuditList/>
+                                <AuditList textSearch={textSearch} />
+                                
+
                             </Col>
 
                             <Col xs='8'>
-                                <AuditDetails> </AuditDetails>
+                                {create?
+                                    <AddAudit></AddAudit>
+                                :
+                                    <AuditDetails> </AuditDetails>
+                                }
                             </Col>
-
+                                        
                         </Row>
                     </Col>
 

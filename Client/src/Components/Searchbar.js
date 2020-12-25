@@ -6,10 +6,7 @@ import {
 function Searchbar() {
     return (
         <div>
-            <Input
-                icon={{ name: 'search'}}
-                placeholder='Search users...'
-            />
+            
         </div>
     )
 }

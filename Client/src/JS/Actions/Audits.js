@@ -7,6 +7,7 @@ import {
   EMPTY_SELECTED_AUDIT
 
 } from "../Constants/Constants";
+import { hideAddAudit } from "./DashbordActions";
 
 export const getAllAudits = () => async (dispatch) => {
     dispatch({ type: GET_AUDITS_STARTED });
@@ -51,6 +52,17 @@ export const getAllAudits = () => async (dispatch) => {
       }
   };
 
+  export const postAudit = (audit) => async (dispatch) => {
+    
+      try {
+        let result = await Axios.post("/api/audit", audit);
+        dispatch(getAllAudits());
+        dispatch({ type: EMPTY_SELECTED_AUDIT });
+        dispatch(hideAddAudit());
+      } catch (error) {
+        console.log(error)
+      }
+  };
 
 
 

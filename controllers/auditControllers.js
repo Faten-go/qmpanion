@@ -2,7 +2,7 @@ const audit = require("../models/AuditSchema");
 
 exports.getAllAudits = async (req, res) => {
     try {
-      const response = await audit.find();
+      const response = await audit.find().populate('anomalies');
       //setTimeout((function() { res.send({ response: response, message: "Opération réussie !" })}), 5000);
       //setTimeout((function() { res.send(items)}), 2000);
       res.send({ response: response, message: "Opération réussie !" });
@@ -43,6 +43,7 @@ exports.getAllAudits = async (req, res) => {
 
 
   exports.update = async (req, res) => {
+        
     try {
       const response = await audit.updateOne(
         { _id: req.params.id },
@@ -56,3 +57,24 @@ exports.getAllAudits = async (req, res) => {
     }
   };
 
+  exports.postAudit = async (req, res) => {
+    try {
+      const newAudit = new audit({ ...req.body });
+      !newAudit.deadline || !newAudit.name
+        ? res.status(400).send({
+            message: "you left a required field empty , please check again !",
+          })
+        : "";
+
+        const date = new Date();
+
+        newAudit.status= "En cours";
+        newAudit.modifiedAt= date.toISOString();
+        newAudit.createdAt= date.toISOString();
+
+      const response = await newAudit.save();
+      res.send({ response: response, message: "audit created !" });
+    } catch (error) {
+      res.status(400).send({ message: "can not save this audit !" });
+    }
+  };

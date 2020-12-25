@@ -16,11 +16,14 @@ import { getAllAudits } from '../../JS/Actions/Audits';
 import FilterAudits from "./FilterAudits";
 
 
-function AuditList() {
+function AuditList({ textSearch }) {
 
     const dispatch = useDispatch();
     const audits= useSelector((state) => state.auditsList.audits);
     const loading = useSelector((state) => state.auditsList.loadingAudits);
+
+
+
     useEffect(() => {
       dispatch(getAllAudits());
     }, []);
@@ -38,7 +41,9 @@ function AuditList() {
                 {loading ? (
                     <AuditsLoader></AuditsLoader>
                 ) : (
-                    audits.map((el) => <AuditCard key={el._id} audit={el} />)
+                    audits
+                    .filter((el) => el.name.toUpperCase().includes(textSearch.toUpperCase()))                    
+                    .map((el) => <AuditCard key={el._id} audit={el} />)
                 )}
                                 
             </Card.Group>

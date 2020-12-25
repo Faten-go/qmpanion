@@ -57,7 +57,11 @@ function AuditDetails() {
     const [ edit, setedit ] = useState(false);
     
     const handlePostAudit = () => {
-       
+        const date = new Date();
+        const dateTransformed = date.toISOString();
+
+        setaudit({ ...audit.modifiedAt = dateTransformed })
+        
         dispatch(editAudit(selectedAudit._id, audit));
         setedit(false); 
     };
