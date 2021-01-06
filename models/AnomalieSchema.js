@@ -8,5 +8,43 @@ const anomalieSchema = new schema({
     required: true,
   },
   
+  status: {
+    type: String,
+    
+  },
+
+  severity: {
+    type: String,
+  
+  },
+
+  description: {
+    type: String,
+   
+  },
+ responsible: {
+    type: String,
+  },
+
+  createdAt : {
+    type:Date,
+  },
+
+ createdBy: {
+    type: String,
+  },
+
+
+ modifiedAt: {
+    type: Date,
+  },
+
+
+  audits: [{ type: schema.Types.ObjectId, ref: 'audit' }]
+
+
 });
+
+
+
 module.exports =Anomalie = mongoose.model("anomalie", anomalieSchema);

@@ -2,7 +2,10 @@ import {
    SHOWSIDEMENU_FALSE,
    SHOWSIDEMENU_TRUE,
    SHOW_ADDAUDIT_FALSE,
-   SHOW_ADDAUDIT_TRUE
+   SHOW_ADDAUDIT_TRUE,
+   SHOW_ADDANOMALIE_FALSE,
+   SHOW_ADDANOMALIE_TRUE
+
    } from "../Constants/Constants";
   const initialState = {
     sideMenuVisible: true,
@@ -21,6 +24,12 @@ import {
         return { ...state, create: true };
       case SHOW_ADDAUDIT_FALSE :
         return { ...state, create: false };
+        case SHOW_ADDANOMALIE_TRUE :
+          return { ...state, create: true };
+        case SHOW_ADDANOMALIE_FALSE :
+          return { ...state, create: false };
+        
+
 
       default:
         return state;

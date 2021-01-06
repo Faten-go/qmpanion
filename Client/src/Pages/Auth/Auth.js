@@ -1,58 +1,124 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Form, Grid, Header, Tab, Icon} from 'semantic-ui-react'
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { loginUser, registerUser } from '../../JS/Actions/User';
 
-const panes = [
-    {
-      menuItem: 'S\'identifier',
-      render: () => <Tab.Pane attached={false}>
-                        <Form size='large'>
-                            
-                            <Form.Input fluid icon='user' iconPosition='left' placeholder='E-mail address' />
-                            <Form.Input
-                                fluid
-                                icon='lock'
-                                iconPosition='left'
-                                placeholder='Password'
-                                type='password'
-                            />
 
-                            <Button color='blue' fluid size='large'>
-                                Login
-                            </Button>
 
-                            Mot de passe oublié? <a href='/'>Clique ici</a>
-                            
-                        </Form>
-                    </Tab.Pane>,
-    },
-    {
-      menuItem: 'S\'enregistrer',
-      render: () => <Tab.Pane attached={false}>
-                        <Form size='large'>
-                            
-                                <Form.Input fluid icon='user' iconPosition='left' placeholder='Adresse Email' />
-                                <Form.Input fluid icon='user' iconPosition='left' placeholder='Prénom' />
-                                <Form.Input fluid icon='user' iconPosition='left' placeholder='Nom' />
-                                <Form.Input
-                                    fluid
-                                    icon='lock'
-                                    iconPosition='left'
-                                    placeholder='Mot de Passe'
-                                    type='password'
-                                />
+const Auth = () => {
 
-                                <Button color='blue' fluid size='large'>
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const dispatch = useDispatch();
+
+    const history = useHistory();
+
+    const panes = [
+        {
+          menuItem: 'S\'identifier',
+          render: () => <Tab.Pane attached={false}>
+                            <Form size='large'>
+                                
+                                <Form.Field>
+                                    <input 
+                                        fluid 
+                                        placeholder='Votre Adresse Email'
+                                        id='email'
+                                        type='text'
+                                        onChange={(e) => setEmail(e.target.value)}
+                                    />
+                                </Form.Field>
+
+                                <Form.Field>
+                                    <input 
+                                        fluid 
+                                        placeholder='Votre mot de passe'
+                                        id='password'
+                                        type='password'
+                                        data-type='password'
+                                        onChange={(e) => setPassword(e.target.value)}
+                                    />
+                                </Form.Field>
+    
+                                <Button type='submit' color='blue' fluid size='large'
+                                    onClick={() =>
+                                        dispatch(loginUser({ email, password }, history))
+                                      }
+                                >
+                                    Login
+                                </Button>
+    
+                                Mot de passe oublié? <a href='/'>Clique ici</a>
+                                
+                            </Form>
+                        </Tab.Pane>,
+        },
+        {
+          menuItem: 'S\'enregistrer',
+          render: () => <Tab.Pane attached={false}>
+                            <Form size='large'>
+
+                                <Form.Field>
+                                    <input 
+                                        fluid 
+                                        placeholder='Votre Adresse Email'
+                                        id='email'
+                                        type='text'
+                                        onChange={(e) => setEmail(e.target.value)}
+                                    />
+                                </Form.Field>
+
+                                <Form.Field>
+                                    <input 
+                                        fluid 
+                                        placeholder='Votre prénom'
+                                        id='firstName'
+                                        type='text'
+                                        onChange={(e) => setFirstName(e.target.value)}
+                                    />
+                                </Form.Field>
+
+                                <Form.Field>
+                                    <input 
+                                        fluid 
+                                        placeholder='Votre Nom'
+                                        id='lastName'
+                                        type='text'
+                                        onChange={(e) => setLastName(e.target.value)}
+                                    />
+                                </Form.Field>
+
+                                <Form.Field>
+                                    <input 
+                                        fluid 
+                                        placeholder='Votre mot de passe'
+                                        id='password'
+                                        type='password'
+                                        data-type='password'
+                                        onChange={(e) => setPassword(e.target.value)}
+                                    />
+                                </Form.Field>
+    
+                                <Button type='submit' color='blue' fluid size='large'
+                                    onClick={() =>
+                                        dispatch(
+                                          registerUser({ firstName, lastName, email, password }, history)
+                                        )
+                                      }
+                                >
                                     Créer un compte
                                 </Button>
-                            
-                        </Form>
-                    
-                    
-                    </Tab.Pane>,
-    },
-  ]
+                                
+                            </Form>
 
-function Auth() {
+                        </Tab.Pane>,
+        },
+      ]
+
 
     return (
     <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>

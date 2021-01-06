@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Searchbar from '../../Components/Searchbar';
 import {
     Dropdown,
@@ -6,15 +6,20 @@ import {
     Menu,
     Header
   } from 'semantic-ui-react';
-  import { Link } from 'react-router-dom';
+  import { Link, useHistory } from 'react-router-dom';
 import { showSideMenu , hideSideMenu } from '../../JS/Actions/DashbordActions';
 import { useDispatch, useSelector } from "react-redux";
+import { logout, current } from '../../JS/Actions/User';
 
 
 const Navbar = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const sideMenuVisible = useSelector((state) => state.dashboardInfo.sideMenuVisible);
+    const user= useSelector((state) => state.user.user);
+
+    const [ currentUser, setCurrentUser ] = useState(user);
 
     const handleClick = () => {
         sideMenuVisible ?  
@@ -24,7 +29,8 @@ const Navbar = () => {
     }
 
     useEffect(() => {
-        
+        dispatch(current());
+        setCurrentUser(user);
       }, []);
 
 
@@ -52,11 +58,19 @@ const Navbar = () => {
 
                 <Menu.Menu position='right'>
                     
-                    <Dropdown item simple text='Faten Fadhlaoui'>
+                    
+                    <Dropdown item simple text={currentUser? currentUser.firstName + ' ' + currentUser.lastName : 'User'}>
+                    
+                         
                     <Dropdown.Menu>
-                        <Dropdown.Item>Gérer mon compte</Dropdown.Item>
+                        <Dropdown.Item as='a' href='/my-account' >Gérer mon compte</Dropdown.Item>
                         <Dropdown.Divider />
-                        <Dropdown.Item>Déconnexion</Dropdown.Item>
+                        <Dropdown.Item 
+                            onClick={() => {
+                                dispatch(logout());
+                                history.push("/login");
+                              }}
+                        >Déconnexion</Dropdown.Item>
                     </Dropdown.Menu>
                     </Dropdown>
                         

@@ -14,7 +14,7 @@ exports.getAllAudits = async (req, res) => {
 
   exports.getOneAudit = async (req, res) => {
     try {
-      const response = await audit.findOne({ _id: req.params.id });
+      const response = await (await audit.findOne({ _id: req.params.id }).populate('anomalies'));
       response === null
         ? res.send({
             response: response,
@@ -57,6 +57,9 @@ exports.getAllAudits = async (req, res) => {
     }
   };
 
+
+
+
   exports.postAudit = async (req, res) => {
     try {
       const newAudit = new audit({ ...req.body });
@@ -68,9 +71,12 @@ exports.getAllAudits = async (req, res) => {
 
         const date = new Date();
 
+        var empty_array = {};
+
         newAudit.status= "En cours";
         newAudit.modifiedAt= date.toISOString();
         newAudit.createdAt= date.toISOString();
+        //newAudit.anomalies = empty_array;
 
       const response = await newAudit.save();
       res.send({ response: response, message: "audit created !" });

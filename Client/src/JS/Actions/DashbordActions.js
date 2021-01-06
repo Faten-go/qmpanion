@@ -4,6 +4,9 @@ import {
     SHOWSIDEMENU_FALSE,
     SHOW_ADDAUDIT_TRUE,
     SHOW_ADDAUDIT_FALSE,
+    SHOW_ADDANOMALIE_TRUE,
+    SHOW_ADDANOMALIE_FALSE,
+
 
 
 }
@@ -27,8 +30,23 @@ export const showSideMenu = () => {
     };
   };
 
+
   export const hideAddAudit = () => {
     return {
       type: SHOW_ADDAUDIT_FALSE,
+    };
+  }; 
+
+  
+  export const showAddAnomalie = () => {
+    return {
+      type: SHOW_ADDANOMALIE_TRUE,
+    };
+  };
+  
+
+  export const hideAddAnomalie= () => {
+    return {
+      type: SHOW_ADDANOMALIE_FALSE,
     };
   }; 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState }  from 'react';
 import { useDispatch, useSelector  } from "react-redux";
-import {  getAudit,  deleteAudit,editAudit} from "../../JS/Actions/Audits";
+import {  getAnomalie,  deleteAnomalie,editAnomalie} from "../../JS/Actions/Anomalies";
 
 import { Row, Col } from 'reactstrap';
 
@@ -31,15 +31,15 @@ import {
   import moment from 'moment';
 import User from '../../Pages/User/User';
   
-function AuditDetails() {
+function AnomalieDetails() {
 
     const dispatch = useDispatch();
-    const selectedAudit = useSelector((state) => state.auditsList.selectedAudit);
+    const selectedAnomalie = useSelector((state) => state.anomaliesList.selectedAnomalie);
 
-    const [ audit , setaudit ] = useState({ name: "", description: "", status: "", createdAt:"", modifiedAt: "", responsible:"", deadline: "", createdby:"" })
+    const [ Anomalie , setAnomalie ] = useState({ name: "", description: "", status: "", createdAt:"", modifiedAt: "", responsible:"", deadline: "", createdby:"" })
     
-    //const [ name, setname ] = useState(selectedAudit.name);
-    //const [ description, setdescription ] = useState(selectedAudit.description);
+    //const [ name, setname ] = useState(selectedAnomalie.name);
+    //const [ description, setdescription ] = useState(selectedAnomalie.description);
 
     const options = [
         { key: 'En cours', text: 'En cours', value: 'En cours' },
@@ -52,37 +52,37 @@ function AuditDetails() {
     function myalert() { 
     
         if (window.confirm('êtes vous sûr de supprimer ?')) {
-            dispatch(deleteAudit(selectedAudit._id))
+            dispatch(deleteAnomalie(selectedAnomalie._id))
         }
     }
 
     const [ edit, setedit ] = useState(false);
     
-    const handlePostAudit = () => {
+    const handlePostAnomalie = () => {
         const date = new Date();
         const dateTransformed = date.toISOString();
 
-        setaudit({ ...audit.modifiedAt = dateTransformed })
+        setAnomalie({ ...Anomalie.modifiedAt = dateTransformed })
 
-        dispatch(editAudit(selectedAudit._id, audit));
+        dispatch(editAnomalie(selectedAnomalie._id, Anomalie));
         setedit(false); 
     };
 
     const handleChange = (e) => {
         e.preventDefault();
        
-        setaudit({ ...audit, [e.target.name]: e.target.value});
+        setAnomalie({ ...Anomalie, [e.target.name]: e.target.value});
 
         console.log(e.target.name)
 
     };
 
     useEffect(() => { 
-       setaudit(selectedAudit);
+       setAnomalie(selectedAnomalie);
 
-    }, [selectedAudit, edit]);
+    }, [selectedAnomalie, edit]);
 
-    console.log(selectedAudit.anomalies)
+    console.log(selectedAnomalie.anomalies)
 
 
     return (
@@ -92,9 +92,9 @@ function AuditDetails() {
 
             
 
-            { (Object.entries(selectedAudit).length === 0) ? (
+            { (Object.entries(selectedAnomalie).length === 0) ? (
 
-                <p>Veuillez sélectionner un audit de la liste pour voir les détails.</p>
+                <p>Veuillez sélectionner un Anomalie de la liste pour voir les détails.</p>
 
             ) : (
                 <Card fluid>
@@ -105,15 +105,15 @@ function AuditDetails() {
 
                             {edit? 
                                 <Button basic type='submit' color='blue'
-                                onClick= {handlePostAudit}
+                                onClick= {handlePostAnomalie}
                                 >Sauvegarder</Button>
                             :  
                         
                                 <Button basic color='blue'
                                     onClick={() => {
                                                 //dispatch(updateTask({...task,name: name,}));
-                                                //setname(selectedAudit.name);
-                                                //setdescription(selectedAudit.description)
+                                                //setname(selectedAnomalie.name);
+                                                //setdescription(selectedAnomalie.description)
                                                 setedit(true);
                                             }}  
                                 >Modifier</Button>
@@ -140,7 +140,7 @@ function AuditDetails() {
 
                             {edit? 
                             <Form.Field>
-                                <input value={audit.name} name='name'  onChange={handleChange} fluid/>
+                                <input value={Anomalie.name} name='name'  onChange={handleChange} fluid/>
                             </Form.Field>
                             
                             
@@ -150,7 +150,7 @@ function AuditDetails() {
                                 <Header as='h4'>
                                     <Icon name='check' />
                                     <Header.Content>
-                                        {selectedAudit.name}
+                                        {selectedAnomalie.name}
                                     </Header.Content>
                                 </Header>
                             }
@@ -159,19 +159,19 @@ function AuditDetails() {
                      </Card.Content>
 
                     <Card.Content>
-                        <Card.Meta> Crée: <b>{moment(selectedAudit.createdAt).fromNow()}</b> | Modifié <b>{moment(selectedAudit.modifiedAt).fromNow()}</b></Card.Meta>
+                        <Card.Meta> Crée: <b>{moment(selectedAnomalie.createdAt).fromNow()}</b> | Modifié <b>{moment(selectedAnomalie.modifiedAt).fromNow()}</b></Card.Meta>
                         
                         <Message >
                             <Message.Header>Description</Message.Header>
                             {edit?
 
                             <Form.Field>
-                                <input value={audit.description} name='description' onChange={handleChange}  fluid/>
+                                <input value={Anomalie.description} name='description' onChange={handleChange}  fluid/>
                             </Form.Field>
 
 
                             :
-                            <p>{selectedAudit.description}</p>
+                            <p>{selectedAnomalie.description}</p>
                             }
                         </Message>
                         
@@ -183,9 +183,9 @@ function AuditDetails() {
                             {edit?
                                 <Form.Field>
                                     <select name="status" onChange={handleChange}>
-                                        <option value="En cours" selected={ selectedAudit.status === 'En cours'}>En cours</option>
-                                        <option value="Terminé" selected={ selectedAudit.status === 'Terminé'}>Terminé</option>
-                                        <option value="Bloqué" selected={ selectedAudit.status === 'Bloqué'}>Bloqué</option>
+                                        <option value="En cours" selected={ selectedAnomalie.status === 'En cours'}>En cours</option>
+                                        <option value="Terminé" selected={ selectedAnomalie.status === 'Terminé'}>Terminé</option>
+                                        <option value="Bloqué" selected={ selectedAnomalie.status === 'Bloqué'}>Bloqué</option>
                                     </select>
                                 </Form.Field>
 
@@ -193,27 +193,27 @@ function AuditDetails() {
 
                             <Step.Group   widths={3} >
 
-                                <Step className={selectedAudit.status === "En cours" ? 'active' : 'disabled' } >
+                                <Step className={selectedAnomalie.status === "En cours" ? 'active' : 'disabled' } >
                                 <Icon name='hourglass half' />
                                 <Step.Content>
                                     <Step.Title>En cours</Step.Title>
-                                    <Step.Description>Cet audit est en cours de préparation.</Step.Description>
+                                    <Step.Description>Cet Anomalie est en cours de préparation.</Step.Description>
                                 </Step.Content>
                                 </Step>
 
-                                <Step  className={selectedAudit.status === "Terminé" ? 'active' : 'disabled' } >
+                                <Step  className={selectedAnomalie.status === "Terminé" ? 'active' : 'disabled' } >
                                 <Icon name='calendar check' />
                                 <Step.Content>
                                     <Step.Title>Terminé</Step.Title>
-                                    <Step.Description>Cet audit a été cloturé.</Step.Description>
+                                    <Step.Description>Cet Anomalie a été cloturé.</Step.Description>
                                 </Step.Content>
                                 </Step>
 
-                                <Step  className={selectedAudit.status === "Bloqué" ? 'active' : 'disabled' } >
+                                <Step  className={selectedAnomalie.status === "Bloqué" ? 'active' : 'disabled' } >
                                 <Icon name='calendar times' />
                                 <Step.Content>
                                     <Step.Title>Bloqué</Step.Title>
-                                    <Step.Description>Cet audit a été bloqué.</Step.Description>
+                                    <Step.Description>Cet Anomalie a été bloqué.</Step.Description>
                                 </Step.Content>
                                 </Step>
                             </Step.Group>
@@ -234,13 +234,13 @@ function AuditDetails() {
                                 {edit?
                             
                             <Form.Field fluid>
-                                 <input type="date" value={audit.deadline} name='deadline' onChange={handleChange}  fluid style={{ width:'150px'}}/>
+                                 <input type="date" value={Anomalie.deadline} name='deadline' onChange={handleChange}  fluid style={{ width:'150px'}}/>
                             </Form.Field>
                             
                            
                             :
 
-                            <Statistic label={moment(selectedAudit.deadline).fromNow()}  value={moment(selectedAudit.deadline).format("D/M/YYYY") } size='tiny' />
+                            <Statistic label={moment(selectedAnomalie.deadline).fromNow()}  value={moment(selectedAnomalie.deadline).format("D/M/YYYY") } size='tiny' />
                             }
 
                            </Message.Content>               
@@ -252,54 +252,36 @@ function AuditDetails() {
                             <Col xs='8' >
                             <Message>
                             <Message.Header >
-                            <Icon name='exclamation' /> Anomalies  </Message.Header> 
+                            <Icon name='exclamation' /> Audits concernés  </Message.Header> 
                             <List divided relaxed>
 
-                            {selectedAudit.anomalies.length !== 0 ?
+                            {selectedAnomalie.audits.length !== 0 ?
             
-                                selectedAudit.anomalies.map((anomalie) => 
+                                selectedAnomalie.audits.map((audit) => 
                                 
-                                <List.Item  key={anomalie._id}>
+                                <List.Item  key={audit._id}>
             
                                         <List.Icon name='hand point right' size='large' verticalAlign='middle' />
 
                                         <List.Content>
-                                            <List.Header as='a'>{anomalie.name}
+                                            <List.Header as='a'>{audit.name}
                                             {(() => {
-                                                    switch (anomalie.status) {
-                                                        case 'Maitrisée':
+                                                    switch (audit.status) {
+                                                        case 'En cours':
                                                             return (
-                                                            <Label color='green' horizontal style={{marginLeft:'10px'}}> {anomalie.status} </Label>
+                                                            <Label color='purple' horizontal style={{marginLeft:'10px'}}> {audit.status} </Label>
                                                             )
-                                                        case 'Non maitrisée':
+                                                        case 'Bloqué':
                                                             return (
-                                                            <Label color='red' horizontal style={{marginLeft:'10px'}}>{anomalie.status}</Label>
+                                                            <Label color='red' horizontal style={{marginLeft:'10px'}}>{audit.status}</Label>
                                                             )
-                                                        default:
+                                                        case 'Terminé':
                                                             return (
-                                                            <Label horizontal>{anomalie.status}</Label>
-                                                            )
-                                                    }
-
-                                            })()}
-
-                                                    {(() => {
-                                                    switch (anomalie.severity) {
-                                                        case 'Faible':
-                                                            return (
-                                                            <Label color='green' horizontal style={{marginLeft:'3px'}}>Sévérité: {anomalie.severity} </Label>
-                                                            )
-                                                        case 'Moyenne':
-                                                            return (
-                                                            <Label color='yellow' horizontal style={{marginLeft:'3px'}}> Sévérité: {anomalie.severity}</Label>
-                                                            )
-                                                        case 'Elevée':
-                                                            return (
-                                                            <Label color='red' horizontal style={{marginLeft:'3px'}}> Sévérité: {anomalie.severity}</Label>
+                                                            <Label color='green' horizontal style={{marginLeft:'10px'}}>{audit.status}</Label>
                                                             )
                                                         default:
                                                             return (
-                                                            <Label horizontal style={{marginLeft:'3px'}}>Sévérité: {anomalie.severity}</Label>
+                                                            <Label horizontal>{audit.status}</Label>
                                                             )
                                                     }
 
@@ -311,7 +293,7 @@ function AuditDetails() {
                                             <Button circular icon='trash alternate'  floated='right'/>
                                             </List.Header>
                                         
-                                            <List.Description >{anomalie.description}</List.Description>
+                                            <List.Description >{audit.description}</List.Description>
                                             
                                         
                                         </List.Content>
@@ -319,7 +301,7 @@ function AuditDetails() {
 
                                 )
 
-                                : <p> Cet audit ne posséde pas encore d'anomalie. </p> 
+                                : <p> Cette Anomalie ne posséde pas encore d'audits. </p> 
                             }
 
                             </List>
@@ -346,4 +328,4 @@ function AuditDetails() {
     )
 }
 
-export default AuditDetails
+export default AnomalieDetails

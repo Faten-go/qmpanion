@@ -8,17 +8,17 @@ import {
     Label,
     List
   } from 'semantic-ui-react';
-import Navbar from './Navbar';
+import Navbar from '../AuditDashboard/Navbar';
 import { Container, Row, Col } from 'reactstrap';
-import AuditList from '../../Components/Audits/AuditList';
-import AuditDetails from '../../Components/Audits/AuditDetails';
-import FilterAudits from '../../Components/Audits/FilterAudits';
+import AnomalieList from '../../Components/Anomalies/AnomalieList';
+import AnomalieDetails from '../../Components/Anomalies/AnomalieDetails';
+import FilterAnomalies from '../../Components/Anomalies/FilterAnomalies';
 import Searchbar from '../../Components/Searchbar';
 import SideMenu from '../../Components/SideMenu';
 import {  useSelector } from "react-redux";
-import AddAudit from '../../Components/Audits/AddAudit';
+import AddAnomalie from '../../Components/Anomalies/AddAnomalie';
 
-function AuditDashbord()  {
+function AnomalieDashbord()  {
     const sideMenuVisible = useSelector((state) => state.dashboardInfo.sideMenuVisible);
     const create = useSelector((state) => state.dashboardInfo.create);
 
@@ -55,25 +55,25 @@ function AuditDashbord()  {
                             marginBottom: '5px'
                         }}>
                             <Col xs='12'>
-                            <FilterAudits setTextSearch={setTextSearch} >
+                            <FilterAnomalies setTextSearch={setTextSearch} >
                             <Searchbar/>
-                                </FilterAudits> 
+                                </FilterAnomalies> 
                             </Col>
                             
                         </Row>
 
                         <Row>
                             <Col xs='4'>
-                                <AuditList textSearch={textSearch} />
+                                <AnomalieList textSearch={textSearch} />
                                 
 
                             </Col>
 
                             <Col xs='8'>
                                 {create?
-                                    <AddAudit></AddAudit>
+                                    <AddAnomalie></AddAnomalie>
                                 :
-                                    <AuditDetails> </AuditDetails>
+                                    <AnomalieDetails> </AnomalieDetails>
                                 }
                             </Col>
                                         
@@ -97,4 +97,4 @@ function AuditDashbord()  {
     )
 }
 
-export default AuditDashbord
+export default AnomalieDashbord
