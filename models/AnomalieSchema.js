@@ -22,17 +22,16 @@ const anomalieSchema = new schema({
     type: String,
    
   },
- responsible: {
-    type: String,
-  },
+
+  responsible: { type: schema.Types.ObjectId, ref: 'user', required: false},
+
 
   createdAt : {
     type:Date,
   },
 
- createdBy: {
-    type: String,
-  },
+ createdBy: {type: schema.Types.ObjectId, ref: 'user', required: false},
+  
 
 
  modifiedAt: {

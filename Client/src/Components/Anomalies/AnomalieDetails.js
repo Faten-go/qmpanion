@@ -159,7 +159,7 @@ function AnomalieDetails() {
                      </Card.Content>
 
                     <Card.Content>
-                        <Card.Meta> Crée: <b>{moment(selectedAnomalie.createdAt).fromNow()}</b> | Modifié <b>{moment(selectedAnomalie.modifiedAt).fromNow()}</b></Card.Meta>
+                        <Card.Meta> Crée: <b>{moment(selectedAnomalie.createdAt).fromNow()}</b> | Modifié <b>{moment(selectedAnomalie.modifiedAt).fromNow()}</b> | Crée par <b>{selectedAnomalie.createdBy.firstName + ' ' + selectedAnomalie.createdBy.lastName}</b></Card.Meta>
                         
                         <Message >
                             <Message.Header>Description</Message.Header>

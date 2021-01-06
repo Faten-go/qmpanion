@@ -34,10 +34,12 @@ import { postAudit } from '../../JS/Actions/Audits';
 function AddAudit() {
 
     const dispatch = useDispatch();
+
+    const user = useSelector((state) => state.user.user);
     
     //const selectedAudit = useSelector((state) => state.auditsList.selectedAudit);
 
-    const [ audit , setaudit ] = useState({ name: "", description: "", status: "", createdAt:"", modifiedAt: "", responsible:"", deadline: "", createdby:"" })
+    const [ audit , setaudit ] = useState({ name: "", description: "", status: "", createdAt:"", modifiedAt: "", responsible:"", deadline: "", createdBy: user._id})
     
     //const [ name, setname ] = useState(selectedAudit.name);
     //const [ description, setdescription ] = useState(selectedAudit.description);

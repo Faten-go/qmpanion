@@ -18,14 +18,11 @@ const auditSchema = new schema({
     type: String,
     //required: true,
   },
-  responsable: {
-    type: String,
-    //required: true,
-  },
-  createdby: {
-    type: String,
-    //required: true,
-  },
+  responsible: {type: schema.Types.ObjectId, ref: 'user', required: false},
+  
+  createdBy: { type: schema.Types.ObjectId, ref: 'user', required: false},
+   
+ 
   createdAt: {
     type: Date,
     //required: true,

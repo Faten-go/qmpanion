@@ -159,7 +159,7 @@ function AuditDetails() {
                      </Card.Content>
 
                     <Card.Content>
-                        <Card.Meta> Crée: <b>{moment(selectedAudit.createdAt).fromNow()}</b> | Modifié <b>{moment(selectedAudit.modifiedAt).fromNow()}</b></Card.Meta>
+                        <Card.Meta> Crée: <b>{moment(selectedAudit.createdAt).fromNow()}</b> | Modifié <b>{moment(selectedAudit.modifiedAt).fromNow()}</b> | Crée par <b>{selectedAudit.createdBy.firstName + ' ' + selectedAudit.createdBy.lastName}</b></Card.Meta>
                         
                         <Message >
                             <Message.Header>Description</Message.Header>

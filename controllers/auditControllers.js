@@ -14,7 +14,7 @@ exports.getAllAudits = async (req, res) => {
 
   exports.getOneAudit = async (req, res) => {
     try {
-      const response = await (await audit.findOne({ _id: req.params.id }).populate('anomalies'));
+      const response = await (await audit.findOne({ _id: req.params.id }).populate('anomalies').populate('createdBy'));
       response === null
         ? res.send({
             response: response,
@@ -76,11 +76,11 @@ exports.getAllAudits = async (req, res) => {
         newAudit.status= "En cours";
         newAudit.modifiedAt= date.toISOString();
         newAudit.createdAt= date.toISOString();
-        //newAudit.anomalies = empty_array;
 
       const response = await newAudit.save();
       res.send({ response: response, message: "audit created !" });
     } catch (error) {
+      console.log(error);
       res.status(400).send({ message: "can not save this audit !" });
     }
   };

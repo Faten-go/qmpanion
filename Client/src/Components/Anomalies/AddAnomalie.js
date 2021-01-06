@@ -36,8 +36,9 @@ function AddAnomalie() {
     const dispatch = useDispatch();
     
     //const selectedAnomalie = useSelector((state) => state.AnomaliesList.selectedAnomalie);
+    const user = useSelector((state) => state.user.user);
 
-    const [ Anomalie , setAnomalie ] = useState({ name: "", description: "", status: "", createdAt:"", modifiedAt: "", responsible:"", severity: "", createdby:"" })
+    const [ Anomalie , setAnomalie ] = useState({ name: "", description: "", status: "", createdAt:"", modifiedAt: "", severity: "", createdBy: user._id })
     
     //const [ name, setname ] = useState(selectedAnomalie.name);
     //const [ description, setdescription ] = useState(selectedAnomalie.description);
@@ -50,9 +51,7 @@ function AddAnomalie() {
     // }
     
     const handlePostAnomalie = () => {
-        console.log('sauvegarder clické')  
         dispatch(postAnomalie(Anomalie));
-        console.log('aprés dispatch')
     };
 
     const handleChange = (e) => {

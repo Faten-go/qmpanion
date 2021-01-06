@@ -12,7 +12,7 @@ exports.getAllAnomalies = async (req, res) => {
 
   exports.getOneAnomalie = async (req, res) => {
   try {
-       const response = await anomalie.findOne({ _id: req.params.id }).populate('audits');
+       const response = await (await anomalie.findOne({ _id: req.params.id }).populate('audits').populate('createdBy'));
        response === null
          ? res.send({
              response: response,
@@ -74,6 +74,7 @@ exports.getAllAnomalies = async (req, res) => {
        const response = await newAnomalie.save();
        res.send({ response: response, message: "anomalie created !" });
      } catch (error) {
+       console.log(error);
        res.status(400).send({ message: "can not save this anomalie !" });
      }
    };
