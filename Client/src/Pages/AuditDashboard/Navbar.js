@@ -29,8 +29,7 @@ const Navbar = () => {
     }
 
     useEffect(() => {
-        dispatch(current());
-        setCurrentUser(user);
+       
       }, []);
 
 
@@ -59,7 +58,7 @@ const Navbar = () => {
                 <Menu.Menu position='right'>
                     
                     
-                    <Dropdown item simple text={currentUser? currentUser.firstName + ' ' + currentUser.lastName : 'User'}>
+                    <Dropdown item simple text={user? user.firstName + ' ' + user.lastName : 'User'}>
                     
                          
                     <Dropdown.Menu>

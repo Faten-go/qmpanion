@@ -71,7 +71,7 @@ exports.getAllAudits = async (req, res) => {
 
         const date = new Date();
 
-        var empty_array = {};
+        //var empty_array = {};
 
         newAudit.status= "En cours";
         newAudit.modifiedAt= date.toISOString();

@@ -108,13 +108,20 @@ function AddAnomalie() {
             
             </Message>
 
-            <Message icon>
-                <Icon name='time'  />
+            <Message >
+                <Message.Header>Sévérié</Message.Header>                          
+            
+                <Form.Field>
+                    <select name="severity" onChange={handleChange}>
+                        <option value="Faible" >Faible</option>
+                        <option value="Moyenne" >Moyenne</option>
+                        <option value="Elevée" >Elevée</option>
                 
-                <Message.Content>
-                                  
-                </Message.Content>               
+                    </select>
+                </Form.Field>
+            
             </Message>
+
         </Card.Content>              
     </Card> 
 </Form>

@@ -36,15 +36,15 @@ function AnomalieDetails() {
     const dispatch = useDispatch();
     const selectedAnomalie = useSelector((state) => state.anomaliesList.selectedAnomalie);
 
-    const [ Anomalie , setAnomalie ] = useState({ name: "", description: "", status: "", createdAt:"", modifiedAt: "", responsible:"", deadline: "", createdby:"" })
+    const [ Anomalie , setAnomalie ] = useState({ name: "", description: "", status: "", createdAt:"", modifiedAt: "", responsible:"", severity: "", createdby:"" })
     
     //const [ name, setname ] = useState(selectedAnomalie.name);
     //const [ description, setdescription ] = useState(selectedAnomalie.description);
 
     const options = [
-        { key: 'En cours', text: 'En cours', value: 'En cours' },
-        { key: 'Terminé', text: 'Terminé', value: 'Terminé' },
-        { key: 'Bloqué', text: 'Bloqué', value: 'Bloqué' },
+        { key: 'Maitrisée', text: 'Maitrisée', value: 'Maitrisée' },
+        { key: 'Non maitrisée', text: 'Non maitrisée', value: 'Non maitrisée' },
+       
       ]
       
 
@@ -183,9 +183,9 @@ function AnomalieDetails() {
                             {edit?
                                 <Form.Field>
                                     <select name="status" onChange={handleChange}>
-                                        <option value="En cours" selected={ selectedAnomalie.status === 'En cours'}>En cours</option>
-                                        <option value="Terminé" selected={ selectedAnomalie.status === 'Terminé'}>Terminé</option>
-                                        <option value="Bloqué" selected={ selectedAnomalie.status === 'Bloqué'}>Bloqué</option>
+                                        <option value="Maitrisée" selected={ selectedAnomalie.status === 'Maitrisée'}>Maitrisée</option>
+                                        <option value="Non maitrisée " selected={ selectedAnomalie.status === 'Non maitrisée'}>Non maitrisée</option>
+                                   
                                     </select>
                                 </Form.Field>
 
@@ -193,63 +193,100 @@ function AnomalieDetails() {
 
                             <Step.Group   widths={3} >
 
-                                <Step className={selectedAnomalie.status === "En cours" ? 'active' : 'disabled' } >
+                                <Step className={selectedAnomalie.status === "Non maitrisée" ? 'active' : 'disabled' } >
                                 <Icon name='hourglass half' />
                                 <Step.Content>
-                                    <Step.Title>En cours</Step.Title>
-                                    <Step.Description>Cet Anomalie est en cours de préparation.</Step.Description>
+                                    <Step.Title>Non maitrisée</Step.Title>
+                                    <Step.Description>Cette Anomalie est non maitrisée.</Step.Description>
                                 </Step.Content>
                                 </Step>
 
-                                <Step  className={selectedAnomalie.status === "Terminé" ? 'active' : 'disabled' } >
+                                <Step  className={selectedAnomalie.status === "Maitrisée" ? 'active' : 'disabled' } >
                                 <Icon name='calendar check' />
                                 <Step.Content>
-                                    <Step.Title>Terminé</Step.Title>
-                                    <Step.Description>Cet Anomalie a été cloturé.</Step.Description>
-                                </Step.Content>
-                                </Step>
-
-                                <Step  className={selectedAnomalie.status === "Bloqué" ? 'active' : 'disabled' } >
-                                <Icon name='calendar times' />
-                                <Step.Content>
-                                    <Step.Title>Bloqué</Step.Title>
-                                    <Step.Description>Cet Anomalie a été bloqué.</Step.Description>
+                                    <Step.Title>Maitrisée</Step.Title>
+                                    <Step.Description>Cette Anomalie est maitrisée.</Step.Description>
                                 </Step.Content>
                                 </Step>
                             </Step.Group>
 
                             }
                             </Message>
+
+                            <Message>
+                            <Message.Header>Sévérité</Message.Header>
+
+
+{edit?
+    <Form.Field>
+        <select name="severity" onChange={handleChange}>
+            <option value="Faible" selected={ selectedAnomalie.severity === 'Faible'}>Faible</option>
+            <option value="Moyenne" selected={ selectedAnomalie.severity=== 'Moyenne'}>Moyenne</option>
+            <option value="Elevée" selected={ selectedAnomalie.severity=== 'Elevée'}>Elevée</option>
+       
+        </select>
+    </Form.Field>
+
+:
+
+<Step.Group   widths={3} >
+
+    <Step className={selectedAnomalie.severity === "Faible" ? 'active' : 'disabled' } >
+    <Icon name='smile outline' />
+    <Step.Content>
+        <Step.Title>Faible</Step.Title>
+        <Step.Description>Cette Anomalie est faible.</Step.Description>
+    </Step.Content>
+    </Step>
+
+    <Step  className={selectedAnomalie.severity === "Moyenne" ? 'active' : 'disabled' } >
+    <Icon name='meh outline' />
+    <Step.Content>
+        <Step.Title>Moyenne</Step.Title>
+        <Step.Description>Cette Anomalie est moyenne.</Step.Description>
+    </Step.Content>
+    </Step>
+    <Step  className={selectedAnomalie.severity === "Elevée" ? 'active' : 'disabled' } >
+    <Icon name='frown outline' />
+    <Step.Content>
+        <Step.Title>Elevée</Step.Title>
+        <Step.Description>Cette Anomalie est élevée.</Step.Description>
+    </Step.Content>
+    </Step>
+
+</Step.Group>
+
+}
+</Message>
+
+
+
  
                                     
                         <Row>
-                            <Col xs='4'>
-                                
-                            <Message icon fluid>
-                                <Icon name='time'  />
-                                <Message.Content>
-                                    <Message.Header>Délai</Message.Header>
-                                    
-                                
-                                {edit?
-                            
-                            <Form.Field fluid>
-                                 <input type="date" value={Anomalie.deadline} name='deadline' onChange={handleChange}  fluid style={{ width:'150px'}}/>
-                            </Form.Field>
-                            
+                            <Col xs='5'>
+                            <Message>  
+                             
+      <Item.Group>  
+                            <Item>
+      <Item.Image size='tiny' src='https://react.semantic-ui.com/images/avatar/large/matthew.png' />
+
+      <Item.Content>
+        <Item.Header as='h6'>Responsable </Item.Header>
+        <Item.Description>Faten Fadhlaoui</Item.Description>
+        
+    
+      </Item.Content>
+    </Item>
+    </Item.Group> 
+    </Message>                
                            
-                            :
-
-                            <Statistic label={moment(selectedAnomalie.deadline).fromNow()}  value={moment(selectedAnomalie.deadline).format("D/M/YYYY") } size='tiny' />
-                            }
-
-                           </Message.Content>               
-                        </Message>
+                             
 
                                 
                             </Col>
 
-                            <Col xs='8' >
+                            <Col xs='7' >
                             <Message>
                             <Message.Header >
                             <Icon name='exclamation' /> Audits concernés  </Message.Header> 
@@ -267,18 +304,19 @@ function AnomalieDetails() {
                                             <List.Header as='a'>{audit.name}
                                             {(() => {
                                                     switch (audit.status) {
-                                                        case 'En cours':
+                                                        case 'Terminé':
                                                             return (
-                                                            <Label color='purple' horizontal style={{marginLeft:'10px'}}> {audit.status} </Label>
+                                                            <Label color='green' horizontal style={{marginLeft:'10px'}}> {audit.status} </Label>
                                                             )
                                                         case 'Bloqué':
                                                             return (
                                                             <Label color='red' horizontal style={{marginLeft:'10px'}}>{audit.status}</Label>
                                                             )
-                                                        case 'Terminé':
-                                                            return (
-                                                            <Label color='green' horizontal style={{marginLeft:'10px'}}>{audit.status}</Label>
-                                                            )
+
+                                                            case 'En cours':
+                                                                return (
+                                                                <Label color='purple' horizontal style={{marginLeft:'10px'}}>{audit.status}</Label>
+                                                                )
                                                         default:
                                                             return (
                                                             <Label horizontal>{audit.status}</Label>
@@ -307,9 +345,7 @@ function AnomalieDetails() {
                             </List>
                         </Message>
                       
-                            
-                            
-                            </Col>
+            </Col>
 
                         </Row>
                        
@@ -317,7 +353,6 @@ function AnomalieDetails() {
                         
                         
                       </Card.Content>
-                  
                   </Card> 
             )}
 

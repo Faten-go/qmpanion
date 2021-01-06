@@ -67,8 +67,28 @@ const AnomalieCard = ({ Anomalie }) => {
 
                         })()}
                     
-                    <Label content={`Délai: ${moment(Anomalie.deadline).format('D/M/YYYY')}`} icon='time' />
+                    {(() => {
+                                                    switch (Anomalie.severity) {
+                                                        case 'Faible':
+                                                            return (
+                                                            <Label color='green' horizontal style={{marginLeft:'3px'}}>Sévérité: {Anomalie.severity} </Label>
+                                                            )
+                                                        case 'Moyenne':
+                                                            return (
+                                                            <Label color='yellow' horizontal style={{marginLeft:'3px'}}> Sévérité: {Anomalie.severity}</Label>
+                                                            )
+                                                        case 'Elevée':
+                                                            return (
+                                                            <Label color='red' horizontal style={{marginLeft:'3px'}}> Sévérité: {Anomalie.severity}</Label>
+                                                            )
+                                                        default:
+                                                            return (
+                                                            <Label horizontal style={{marginLeft:'3px'}}>Sévérité: {Anomalie.severity}</Label>
+                                                            )
+                                                    }
 
+                                            })()}
+      
                     </List.Item>
                     </Card.Content>
             </Card>

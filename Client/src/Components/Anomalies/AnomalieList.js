@@ -34,7 +34,8 @@ function AnomalieList({ textSearch }) {
             <Card.Group fluid 
                 itemsPerRow={1}
                 style={{
-
+                    overflow: 'auto',
+                    maxHeight: '85vh'
                 }}
             >
                 

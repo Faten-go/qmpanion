@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const schema = mongoose.Schema;
 
 const auditSchema = new schema({
-  _id: schema.Types.ObjectId,
+  //_id: schema.Types.ObjectId,
   name: {
     type: String,
     required: true,
@@ -34,6 +34,6 @@ const auditSchema = new schema({
     type: Date,
     //required: true,
   },
-  anomalies: [{ type: schema.Types.ObjectId, ref: 'anomalie' }]
+  anomalies: [{ type: schema.Types.ObjectId, ref: 'anomalie', required: false }]
 });
 module.exports = Audit = mongoose.model("audit", auditSchema);

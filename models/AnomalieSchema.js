@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const schema = mongoose.Schema;
 
 const anomalieSchema = new schema({
-  _id: schema.Types.ObjectId,
+  //_id: schema.Types.ObjectId,
   name: {
     type: String,
     required: true,
@@ -40,7 +40,7 @@ const anomalieSchema = new schema({
   },
 
 
-  audits: [{ type: schema.Types.ObjectId, ref: 'audit' }]
+  audits: [{ type: schema.Types.ObjectId, ref: 'audit', required: false }]
 
 
 });

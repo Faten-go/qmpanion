@@ -34,7 +34,8 @@ function AuditList({ textSearch }) {
             <Card.Group fluid 
                 itemsPerRow={1}
                 style={{
-
+                    overflow: 'auto',
+                    maxHeight: '100vh'
                 }}
             >
                 
