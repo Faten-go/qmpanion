@@ -1,8 +1,9 @@
 import React, { useEffect, useState }  from 'react';
 import { useDispatch, useSelector  } from "react-redux";
 import {  getAudit,  deleteAudit,editAudit} from "../../JS/Actions/Audits";
+import { getAllUsers } from '../../JS/Actions/User';
 
-import { Row, Col } from 'reactstrap';
+import { Row, Col, CustomInput } from 'reactstrap';
 
 import {
     Sidebar,
@@ -26,28 +27,29 @@ import {
     Step,
     Item,
     Form,
-    Statistic
+    Statistic,
+    Checkbox
   } from 'semantic-ui-react';
   import moment from 'moment';
 import User from '../../Pages/User/User';
+import { getAllAnomalies } from '../../JS/Actions/Anomalies';
   
 function AuditDetails() {
 
     const dispatch = useDispatch();
     const selectedAudit = useSelector((state) => state.auditsList.selectedAudit);
 
-    const [ audit , setaudit ] = useState({ name: "", description: "", status: "", createdAt:"", modifiedAt: "", responsible:"", deadline: "", createdby:"" })
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    const allAnomalies = useSelector((state) => state.anomaliesList.anomalies);
+    const users = useSelector((state) => state.user.users);
+
+    const [ audit , setaudit ] = useState({ name: "", description: "", status: "", createdAt:"", modifiedAt: "", responsible:"", deadline: "" })
     
     //const [ name, setname ] = useState(selectedAudit.name);
     //const [ description, setdescription ] = useState(selectedAudit.description);
 
-    const options = [
-        { key: 'En cours', text: 'En cours', value: 'En cours' },
-        { key: 'Terminé', text: 'Terminé', value: 'Terminé' },
-        { key: 'Bloqué', text: 'Bloqué', value: 'Bloqué' },
-      ]
-      
-
+    dispatch(getAllAnomalies()); 
 
     function myalert() { 
     
@@ -73,16 +75,19 @@ function AuditDetails() {
        
         setaudit({ ...audit, [e.target.name]: e.target.value});
 
-        console.log(e.target.name)
+        //console.log(e.target.name)
 
     };
 
     useEffect(() => { 
        setaudit(selectedAudit);
+       dispatch(getAllUsers());
+       dispatch(getAllAnomalies()); 
+       console.log(allAnomalies)
 
     }, [selectedAudit, edit]);
 
-    console.log(selectedAudit.anomalies)
+    //console.log(selectedAudit.anomalies)
 
 
     return (
@@ -181,6 +186,7 @@ function AuditDetails() {
 
 
                             {edit?
+                                (user.role === 'Responsable qualité')? 
                                 <Form.Field>
                                     <select name="status" onChange={handleChange}>
                                         <option value="En cours" selected={ selectedAudit.status === 'En cours'}>En cours</option>
@@ -188,6 +194,10 @@ function AuditDetails() {
                                         <option value="Bloqué" selected={ selectedAudit.status === 'Bloqué'}>Bloqué</option>
                                     </select>
                                 </Form.Field>
+
+
+                                : 
+                                'Seul un Responsable qualité peut changer le status'        
 
                             :
 
@@ -246,6 +256,36 @@ function AuditDetails() {
                            </Message.Content>               
                         </Message>
 
+                        <Message>  
+                             
+                             <Item.Group>  
+                                                     <Item>
+                             <Item.Image size='tiny' src={selectedAudit.responsible.imageLink} />
+
+                             <Item.Content>
+                                 <Item.Header as='h6'>Responsable</Item.Header>
+
+                                 {edit?
+
+                                     <Form.Field>
+                                         <select name="responsible" onChange={handleChange}>
+                                             {users.map((user) => <option value={user._id} selected='false'  >{user.firstName + ' ' + user.lastName}</option> )}
+                                         </select>
+                                     </Form.Field>
+
+                                 :
+                                 
+                                     <Item.Description>{selectedAudit.responsible.firstName + ' ' + selectedAudit.responsible.lastName}</Item.Description>
+
+                                 }
+                                
+                                 
+                             
+                             </Item.Content>
+                             </Item>
+                             </Item.Group> 
+                         </Message>  
+
                                 
                             </Col>
 
@@ -255,72 +295,86 @@ function AuditDetails() {
                             <Icon name='exclamation' /> Anomalies  </Message.Header> 
                             <List divided relaxed>
 
-                            {selectedAudit.anomalies.length !== 0 ?
-            
-                                selectedAudit.anomalies.map((anomalie) => 
+                            
+                            {edit?
+                                <Form.Group>
+                                       
+                                        {allAnomalies.map((el) => 
+                                            <Form.Field>
+                                                <Checkbox type="checkbox"  name={el.name} id={el._id} label={el.name} checked  /> 
+                                            </Form.Field>
+                                        )}  
+                                    
+                                </Form.Group>
                                 
-                                <List.Item  key={anomalie._id}>
-            
-                                        <List.Icon name='hand point right' size='large' verticalAlign='middle' />
-
-                                        <List.Content>
-                                            <List.Header as='a'>{anomalie.name}
-                                            {(() => {
-                                                    switch (anomalie.status) {
-                                                        case 'Maitrisée':
-                                                            return (
-                                                            <Label color='green' horizontal style={{marginLeft:'10px'}}> {anomalie.status} </Label>
-                                                            )
-                                                        case 'Non maitrisée':
-                                                            return (
-                                                            <Label color='red' horizontal style={{marginLeft:'10px'}}>{anomalie.status}</Label>
-                                                            )
-                                                        default:
-                                                            return (
-                                                            <Label horizontal>{anomalie.status}</Label>
-                                                            )
-                                                    }
-
-                                            })()}
-
-                                                    {(() => {
-                                                    switch (anomalie.severity) {
-                                                        case 'Faible':
-                                                            return (
-                                                            <Label color='green' horizontal style={{marginLeft:'3px'}}>Sévérité: {anomalie.severity} </Label>
-                                                            )
-                                                        case 'Moyenne':
-                                                            return (
-                                                            <Label color='yellow' horizontal style={{marginLeft:'3px'}}> Sévérité: {anomalie.severity}</Label>
-                                                            )
-                                                        case 'Elevée':
-                                                            return (
-                                                            <Label color='red' horizontal style={{marginLeft:'3px'}}> Sévérité: {anomalie.severity}</Label>
-                                                            )
-                                                        default:
-                                                            return (
-                                                            <Label horizontal style={{marginLeft:'3px'}}>Sévérité: {anomalie.severity}</Label>
-                                                            )
-                                                    }
-
-                                            })()}
-
-
-
-                                        
-                                            <Button circular icon='trash alternate'  floated='right'/>
-                                            </List.Header>
-                                        
-                                            <List.Description >{anomalie.description}</List.Description>
+                                
+                                :
+                                 selectedAudit.anomalies.length !== 0 ?
+                                    selectedAudit.anomalies.map((anomalie) => 
+                                    <List.Item  key={anomalie._id}>
+                
+                                            <List.Icon name='hand point right' size='large' verticalAlign='middle' />
+    
+                                            <List.Content>
+                                                <List.Header as='a'>{anomalie.name}
+                                                {(() => {
+                                                        switch (anomalie.status) {
+                                                            case 'Maitrisée':
+                                                                return (
+                                                                <Label color='green' horizontal style={{marginLeft:'10px'}}> {anomalie.status} </Label>
+                                                                )
+                                                            case 'Non maitrisée':
+                                                                return (
+                                                                <Label color='red' horizontal style={{marginLeft:'10px'}}>{anomalie.status}</Label>
+                                                                )
+                                                            default:
+                                                                return (
+                                                                <Label horizontal>{anomalie.status}</Label>
+                                                                )
+                                                        }
+    
+                                                })()}
+    
+                                                        {(() => {
+                                                        switch (anomalie.severity) {
+                                                            case 'Faible':
+                                                                return (
+                                                                <Label color='green' horizontal style={{marginLeft:'3px'}}>Sévérité: {anomalie.severity} </Label>
+                                                                )
+                                                            case 'Moyenne':
+                                                                return (
+                                                                <Label color='yellow' horizontal style={{marginLeft:'3px'}}> Sévérité: {anomalie.severity}</Label>
+                                                                )
+                                                            case 'Elevée':
+                                                                return (
+                                                                <Label color='red' horizontal style={{marginLeft:'3px'}}> Sévérité: {anomalie.severity}</Label>
+                                                                )
+                                                            default:
+                                                                return (
+                                                                <Label horizontal style={{marginLeft:'3px'}}>Sévérité: {anomalie.severity}</Label>
+                                                                )
+                                                        }
+    
+                                                })()}
+    
+    
+    
                                             
-                                        
-                                        </List.Content>
-                                </List.Item>
-
-                                )
-
-                                : <p> Cet audit ne posséde pas encore d'anomalie. </p> 
+                                                <Button circular icon='trash alternate'  floated='right'/>
+                                                </List.Header>
+                                            
+                                                <List.Description >{anomalie.description}</List.Description>
+                                                
+                                            
+                                            </List.Content>
+                                    </List.Item>
+                                    )
+    
+                                    : <p> Cet audit ne posséde pas encore d'anomalie. </p> 
+                                
                             }
+
+                            
 
                             </List>
                         </Message>

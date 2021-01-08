@@ -6,6 +6,8 @@ import {
     SHOW_ADDAUDIT_FALSE,
     SHOW_ADDANOMALIE_TRUE,
     SHOW_ADDANOMALIE_FALSE,
+    SHOW_ADDACTIONCORRECTIVE_TRUE,
+    SHOW_ADDACTIONCORRECTIVE_FALSE,
 
 
 
@@ -48,5 +50,18 @@ export const showSideMenu = () => {
   export const hideAddAnomalie= () => {
     return {
       type: SHOW_ADDANOMALIE_FALSE,
+    };
+  }; 
+
+  export const showAddActionCorrective = () => {
+    return {
+      type: SHOW_ADDACTIONCORRECTIVE_TRUE,
+    };
+  };
+  
+
+  export const hideAddActionCorrective= () => {
+    return {
+      type: SHOW_ADDACTIONCORRECTIVE_FALSE,
     };
   }; 

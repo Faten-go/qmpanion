@@ -2,7 +2,7 @@ const audit = require("../models/AuditSchema");
 
 exports.getAllAudits = async (req, res) => {
     try {
-      const response = await audit.find().populate('anomalies');
+      const response = await audit.find().populate('responsible');
       //setTimeout((function() { res.send({ response: response, message: "Opération réussie !" })}), 5000);
       //setTimeout((function() { res.send(items)}), 2000);
       res.send({ response: response, message: "Opération réussie !" });
@@ -14,7 +14,7 @@ exports.getAllAudits = async (req, res) => {
 
   exports.getOneAudit = async (req, res) => {
     try {
-      const response = await (await audit.findOne({ _id: req.params.id }).populate('anomalies').populate('createdBy'));
+      const response = await audit.findOne({ _id: req.params.id }).populate('anomalies').populate('createdBy').populate('responsible');
       response === null
         ? res.send({
             response: response,

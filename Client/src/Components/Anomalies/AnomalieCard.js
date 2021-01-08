@@ -31,7 +31,7 @@ const AnomalieCard = ({ Anomalie }) => {
                     <Image
                         floated='right'
                         size='mini'
-                        src='https://react.semantic-ui.com/images/avatar/large/steve.jpg'
+                        src={Anomalie.responsible.imageLink}
                     />
                     
                     <Card.Header as='a' onClick={handleClick} >{Anomalie.name}</Card.Header>

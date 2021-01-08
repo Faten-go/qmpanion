@@ -31,7 +31,7 @@ const AuditCard = ({ audit }) => {
                     <Image
                         floated='right'
                         size='mini'
-                        src='https://react.semantic-ui.com/images/avatar/large/steve.jpg'
+                        src={ audit.responsible.imageLink}
                     />
                     
                     <Card.Header as='a' onClick={handleClick} >{audit.name}</Card.Header>

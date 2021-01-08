@@ -38,4 +38,10 @@ router.post("/login", loginRules(), validation, controllers.login);
 // // get current user
 router.get("/current", isAuth(), controllers.current);
 
+// get all users
+router.get("/", controllers.getAllUsers);
+
+//change the account
+router.put("/changeAccount", registerRules(), validation, controllers.changeAccount);
+
 module.exports = router;

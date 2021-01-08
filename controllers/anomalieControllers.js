@@ -2,7 +2,7 @@ const anomalie = require("../models/AnomalieSchema");
 
 exports.getAllAnomalies = async (req, res) => {
   try {
-   const response = await anomalie.find();
+   const response = await anomalie.find().populate('responsible');
  res.send({ response: response, message: "Opération réussie !" });
  } catch (error) {
    res.status(400).send({ message: "Echec! Réessayer SVP!" });
@@ -12,7 +12,7 @@ exports.getAllAnomalies = async (req, res) => {
 
   exports.getOneAnomalie = async (req, res) => {
   try {
-       const response = await (await anomalie.findOne({ _id: req.params.id }).populate('audits').populate('createdBy'));
+       const response = await  anomalie.findOne({ _id: req.params.id }).populate('audits').populate('createdBy').populate('responsible');
        response === null
          ? res.send({
              response: response,

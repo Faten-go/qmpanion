@@ -17,9 +17,12 @@ const Navbar = () => {
     const history = useHistory();
 
     const sideMenuVisible = useSelector((state) => state.dashboardInfo.sideMenuVisible);
-    const user= useSelector((state) => state.user.user);
+    //const user= useSelector((state) => state.user.user);
+    const user = JSON.parse(localStorage.getItem('user'));
 
-    const [ currentUser, setCurrentUser ] = useState(user);
+    //console.log(user)
+
+    //const [ currentUser, setCurrentUser ] = useState(user);
 
     const handleClick = () => {
         sideMenuVisible ?  
@@ -29,7 +32,7 @@ const Navbar = () => {
     }
 
     useEffect(() => {
-       
+       //dispatch(current)
       }, []);
 
 

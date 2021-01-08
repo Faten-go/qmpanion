@@ -3,9 +3,10 @@ import { useDispatch } from "react-redux";
 import { Redirect, Route } from "react-router-dom";
 import { current } from "../JS/Actions/User";
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
+const AdminRoute = ({ component: Component, ...rest }) => {
 
     const dispatch = useDispatch();
+    const user = JSON.parse(localStorage.getItem('user'));
 
     useEffect(() => {
       dispatch(current);
@@ -13,12 +14,15 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   
     const isAuth = localStorage.getItem("token");
   
-    if (isAuth) {
-        return <Route component={Component} {...rest} />;
+    if (isAuth){
+        if (user.role === "Admin") {
+            return <Route component={Component} {...rest} />;
+        }
+        return <Redirect to="/" />;
     }
 
-  return <Redirect to="/login" />;
+    return <Redirect to="/login" />;
 
 };
 
-export default PrivateRoute;
+export default AdminRoute;

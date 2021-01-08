@@ -12,6 +12,7 @@ const Auth = () => {
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [imageLink, setImageLink] = useState("");
 
     const dispatch = useDispatch();
 
@@ -102,11 +103,21 @@ const Auth = () => {
                                         onChange={(e) => setPassword(e.target.value)}
                                     />
                                 </Form.Field>
+
+                                <Form.Field>
+                                    <input 
+                                        fluid 
+                                        placeholder='Lien de la photo de profil'
+                                        id='imageLink'
+                                        type='text'
+                                        onChange={(e) => setImageLink(e.target.value)}
+                                    />
+                                </Form.Field>
     
                                 <Button type='submit' color='blue' fluid size='large'
                                     onClick={() =>
                                         dispatch(
-                                          registerUser({ firstName, lastName, email, password }, history)
+                                          registerUser({ firstName, lastName, email, password, imageLink }, history)
                                         )
                                       }
                                 >

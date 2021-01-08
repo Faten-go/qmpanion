@@ -11,9 +11,12 @@ app.use(express.json());
 
 app.use("/api/audit", require("./routes/audit"));
 app.use("/api/anomalie", require("./routes/anomalie"));
+app.use("/api/actionCorrective", require("./routes/actionCorrective"));
 
 
 app.use("/user", require("./routes/user"));
+
+app.use("/api/admin", require("./routes/admin"));
 
 
 

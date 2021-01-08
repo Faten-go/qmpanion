@@ -30,24 +30,19 @@ import {
   } from 'semantic-ui-react';
   import moment from 'moment';
 import User from '../../Pages/User/User';
+import { getAllUsers } from '../../JS/Actions/User';
   
 function AnomalieDetails() {
 
     const dispatch = useDispatch();
     const selectedAnomalie = useSelector((state) => state.anomaliesList.selectedAnomalie);
 
-    const [ Anomalie , setAnomalie ] = useState({ name: "", description: "", status: "", createdAt:"", modifiedAt: "", responsible:"", severity: "", createdby:"" })
+    const users = useSelector((state) => state.user.users);
+
+    const [ Anomalie , setAnomalie ] = useState({ name: "", description: "", status: "", createdAt:"", modifiedAt: "", severity: ""})
     
     //const [ name, setname ] = useState(selectedAnomalie.name);
     //const [ description, setdescription ] = useState(selectedAnomalie.description);
-
-    const options = [
-        { key: 'Maitrisée', text: 'Maitrisée', value: 'Maitrisée' },
-        { key: 'Non maitrisée', text: 'Non maitrisée', value: 'Non maitrisée' },
-       
-      ]
-      
-
 
     function myalert() { 
     
@@ -79,6 +74,7 @@ function AnomalieDetails() {
 
     useEffect(() => { 
        setAnomalie(selectedAnomalie);
+       dispatch(getAllUsers());
 
     }, [selectedAnomalie, edit]);
 
@@ -269,11 +265,23 @@ function AnomalieDetails() {
                              
       <Item.Group>  
                             <Item>
-      <Item.Image size='tiny' src='https://react.semantic-ui.com/images/avatar/large/matthew.png' />
+      <Item.Image size='tiny' src={selectedAnomalie.responsible.imageLink} />
 
       <Item.Content>
         <Item.Header as='h6'>Responsable </Item.Header>
-        <Item.Description>Faten Fadhlaoui</Item.Description>
+        {edit?
+
+<Form.Field>
+    <select name="responsible" onChange={handleChange}>
+        {users.map((user) => <option value={user._id} selected='false'  >{user.firstName + ' ' + user.lastName}</option> )}
+    </select>
+</Form.Field>
+
+:
+
+<Item.Description>{selectedAnomalie.responsible.firstName + ' ' + selectedAnomalie.responsible.lastName}</Item.Description>
+
+}
         
     
       </Item.Content>

@@ -5,20 +5,18 @@ import {
     Dropdown,
     Input
   } from 'semantic-ui-react';
-import { hideAddAudit, showAddAudit } from '../../JS/Actions/DashbordActions';
+import { hideAddActionCorrective , showAddActionCorrective } from '../../JS/Actions/DashbordActions';
 import Searchbar from '../Searchbar';
 import { useDispatch, useSelector } from "react-redux";
 
 
-function FilterAudits({setTextSearch}) {
+function FilterActionsCorrectives({setTextSearch}) {
     const dispatch = useDispatch();
-
-    const user = JSON.parse(localStorage.getItem('user'));
 
     const create = useSelector((state) => state.dashboardInfo.create);
 
     const handleClick = () => {   
-        dispatch (showAddAudit ())      
+        dispatch (showAddActionCorrective ())      
     }
 
     useEffect(() => {
@@ -27,17 +25,11 @@ function FilterAudits({setTextSearch}) {
     return (
         <>
             <Menu borderless secondary>
-                { (user.role === 'Responsable qualité') ?
-                <Menu.Item onClick={handleClick}>
-                    <Icon className='add'></Icon>
-                    Créer
+                    <Menu.Item onClick={handleClick}>
+                        <Icon className='add'></Icon>
+                        Créer
 
-                </Menu.Item>
-
-                :
-                    ''
-                }
-                    
+                    </Menu.Item>
 
                     <Menu.Item>
                         <Icon className='filter'></Icon>
@@ -69,4 +61,4 @@ function FilterAudits({setTextSearch}) {
     )
 }
 
-export default FilterAudits
+export default FilterActionsCorrectives

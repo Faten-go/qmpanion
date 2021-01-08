@@ -1,10 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from "react-redux"
 import { Dropdown, Icon, Input, Menu, Segment, Image, Header } from 'semantic-ui-react'
+import { useDispatch } from "react-redux"; 
+import { current } from '../JS/Actions/User';
 
 function SideMenu() {
 
-    const user = useSelector((state) => state.user.user);
+    const dispatch = useDispatch();
+    //const user = useSelector((state) => state.user.user);
+    const user = JSON.parse(localStorage.getItem('user'));
+
+
+    useEffect(() => {
+     // dispatch(current)
+    }, [])
 
     return (
        <div>
@@ -15,11 +24,11 @@ function SideMenu() {
 
           <Menu inverted fluid vertical >
             <Menu.Item>
-                <Image circular centered src='https://react.semantic-ui.com/images/avatar/large/patrick.png' style={{ maxWidth: '80px'}} />
+                <Image circular centered src={user.imageLink} style={{ maxWidth: '80px'}} />
                 <Header as='h3' icon inverted color='blue'>
                     Bienvenue {user? user.firstName : "Nom d'utilisateur"}
                     <Header.Subheader>
-                    Vous êtes ici en tant que : <b>Responsable Qualité</b>
+                    Vous êtes ici en tant que : <b>{user? user.role : "role de l'utilisateur"}</b>
                     </Header.Subheader>
                 </Header>
             </Menu.Item>
@@ -46,7 +55,7 @@ function SideMenu() {
               Anomalies
             </Menu.Item>
 
-            <Menu.Item  as='a' href="/actionsCorrectives"
+            <Menu.Item  as='a' href="/actions-correctives"
               name='browse'
               //active={activeItem === 'browse'}
               //onClick={this.handleItemClick}
@@ -55,16 +64,20 @@ function SideMenu() {
               Actions correctives
             </Menu.Item>
 
+      { user.role === "Admin" ?  
+            <Menu.Item  as='a' href="/Admin"
+              name='browse' 
+              //active={activeItem === 'browse'}
+              //onClick={this.handleItemClick}
+            >
+              <Icon name='users' />
+              Gérer les utilisateurs
+            </Menu.Item>
+        :
+        ''
+        }
 
-
-            <Dropdown item text='Options'>
-              <Dropdown.Menu>
-                <Dropdown.Item icon='edit' text='Edit Profile' />
-                <Dropdown.Item icon='globe' text='Choose Language' />
-                <Dropdown.Item icon='settings' text='Account Settings' />
-              </Dropdown.Menu>
-            </Dropdown>
-          </Menu> 
+</Menu> 
       </Segment>
         </div>
     )

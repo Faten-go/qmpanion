@@ -1,23 +1,23 @@
-/* const express = require("express");
+ const express = require("express");
 const router = express.Router();
-const anomalie = require("../models/AnomalieSchema");
-const controllers = require("../controllers/anomalieControllers"); */
+const actionCorrective = require("../models/ActionCorrectiveSchema");
+const controllers = require("../controllers/actionCorrectiveControllers"); 
 
 
-// // get all
-// router.get("/", controllers.getAllAnomalies);
+ // get all
+ router.get("/", controllers.getAllActionCorrectives);
 
-// // get by id
-// router.get("/:id", controllers.getOneAnomlie);
+  //get by id
+ router.get("/:id", controllers.getOneActionCorrective);
 
-// // delete by id
-// router.delete("/:id", controllers.delete);
+ // delete by id
+ router.delete("/:id", controllers.delete);
 
-// // update
-// router.put("/:id", controllers.update);
+ // update
+ router.put("/:id", controllers.update);
 
-// //post
-// router.post("/", controllers.postAnomalie);
+// post
+ router.post("/", controllers.postActionCorrective);
 
 
-//module.exports = router;
+module.exports = router;

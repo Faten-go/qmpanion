@@ -8,26 +8,24 @@ import {
     Label,
     List
   } from 'semantic-ui-react';
-import Navbar from './Navbar';
+import Navbar from '../AuditDashboard/Navbar';
 import { Container, Row, Col } from 'reactstrap';
-import AuditList from '../../Components/Audits/AuditList';
-import AuditDetails from '../../Components/Audits/AuditDetails';
-import FilterAudits from '../../Components/Audits/FilterAudits';
+import ActionCorrectiveList from '../../Components/ActionCorrectives/ActionCorrectiveList';
+import ActionCorrectiveDetails from '../../Components/ActionCorrectives/ActionCorrectiveDetails';
+import FilterActionCorrectives from '../../Components/ActionCorrectives/FilterActionsCorrectives';
 import Searchbar from '../../Components/Searchbar';
 import SideMenu from '../../Components/SideMenu';
-import {  useSelector, useDispatch } from "react-redux";
-import AddAudit from '../../Components/Audits/AddAudit';
-import { current } from '../../JS/Actions/User';
+import {  useSelector } from "react-redux";
+import AddActionCorrective from '../../Components/ActionCorrectives/AddActionCorrective';
 
-function AuditDashbord()  {
-    const dispatch = useDispatch()
+function ActionCorrectiveDashbord()  {
     const sideMenuVisible = useSelector((state) => state.dashboardInfo.sideMenuVisible);
     const create = useSelector((state) => state.dashboardInfo.create);
 
     const [textSearch, setTextSearch] = useState("")
 
     useEffect(() => {
-       dispatch(current)
+        
       }, []);
 
     return (
@@ -57,25 +55,25 @@ function AuditDashbord()  {
                             marginBottom: '5px'
                         }}>
                             <Col xs='12'>
-                            <FilterAudits setTextSearch={setTextSearch} >
-                            <Searchbar/>
-                                </FilterAudits> 
+                            <FilterActionCorrectives setTextSearch={setTextSearch} >
+                                <Searchbar/>
+                            </FilterActionCorrectives> 
                             </Col>
                             
                         </Row>
 
                         <Row>
                             <Col xs='4'>
-                                <AuditList textSearch={textSearch} />
+                                <ActionCorrectiveList textSearch={textSearch} />
                                 
 
                             </Col>
 
                             <Col xs='8'>
                                 {create?
-                                    <AddAudit></AddAudit>
+                                   <AddActionCorrective></AddActionCorrective>
                                 :
-                                    <AuditDetails> </AuditDetails>
+                                    <ActionCorrectiveDetails> </ActionCorrectiveDetails>
                                 }
                             </Col>
                                         
@@ -99,4 +97,4 @@ function AuditDashbord()  {
     )
 }
 
-export default AuditDashbord
+export default ActionCorrectiveDashbord

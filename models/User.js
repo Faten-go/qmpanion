@@ -21,6 +21,15 @@ role: {
     type: String,
     //required: true,
   },
+  imageLink: {
+    type: String,
+    //required: true
+  },
+  
+  isValidated : {
+    type: Boolean,
+
+  }
 });
 
 module.exports = mongoose.model("user", UserSchema);

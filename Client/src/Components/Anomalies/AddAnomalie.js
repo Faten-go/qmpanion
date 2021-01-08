@@ -30,15 +30,18 @@ import {
 import User from '../../Pages/User/User';
 import { hideAddAnomalie } from '../../JS/Actions/DashbordActions';
 import { postAnomalie } from '../../JS/Actions/Anomalies';
+import { getAllUsers } from '../../JS/Actions/User';
   
 function AddAnomalie() {
 
     const dispatch = useDispatch();
     
     //const selectedAnomalie = useSelector((state) => state.AnomaliesList.selectedAnomalie);
-    const user = useSelector((state) => state.user.user);
+    //const user = useSelector((state) => state.user.user);
+    const user = JSON.parse(localStorage.getItem('user'));
+    const users = useSelector((state) => state.user.users);
 
-    const [ Anomalie , setAnomalie ] = useState({ name: "", description: "", status: "", createdAt:"", modifiedAt: "", severity: "", createdBy: user._id })
+    const [ Anomalie , setAnomalie ] = useState({ name: "", description: "", status: "", createdAt:"", modifiedAt: "", severity: "Faible", createdBy: user._id, responsible: user._id })
     
     //const [ name, setname ] = useState(selectedAnomalie.name);
     //const [ description, setdescription ] = useState(selectedAnomalie.description);
@@ -64,8 +67,7 @@ function AddAnomalie() {
     };
 
     useEffect(() => { 
-       
-
+        dispatch(getAllUsers()); 
     }, []);
     
 
@@ -108,7 +110,7 @@ function AddAnomalie() {
             </Message>
 
             <Message >
-                <Message.Header>Sévérié</Message.Header>                          
+                <Message.Header>Sévérité</Message.Header>                          
             
                 <Form.Field>
                     <select name="severity" onChange={handleChange}>
@@ -116,6 +118,17 @@ function AddAnomalie() {
                         <option value="Moyenne" >Moyenne</option>
                         <option value="Elevée" >Elevée</option>
                 
+                    </select>
+                </Form.Field>
+            
+            </Message>
+
+            <Message >
+                <Message.Header>Responsable</Message.Header>                          
+            
+                <Form.Field>
+                    <select name="responsible" onChange={handleChange}>
+                        {users.map((user) => <option value={user._id} >{user.firstName + ' ' + user.lastName}</option> )}
                     </select>
                 </Form.Field>
             
